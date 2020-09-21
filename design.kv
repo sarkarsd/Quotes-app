@@ -1,0 +1,175 @@
+##<<..............................................................>>
+## <<........................LOGIN SCREEN........................>>
+##<<...............................................................>>
+<LoginScreen>:
+    GridLayout:
+        cols:1
+        GridLayout:
+            padding:20,20
+            spacing:20,20
+            size_hint:0.5,0.5
+            cols:1
+        	Label:
+        		text: 'USER LOGIN'
+        		font_size:'20sp'
+    		TextInput:
+    			hint_text:'Username'
+    			id:username
+    			multiline: False
+			TextInput:
+				hint_text:'Password'
+				password: True
+				id:password
+				multiline: False
+            RelativeLayout:
+                Button:
+                    text: 'login'
+                    size_hint:0.3, 0.6
+                    pos_hint:{'center_x':0.5, 'center_y':0.6}
+                    background_color: 0, 0, 255, 1
+                    font_size:'18sp'
+                    opacity:1 if self.state=='normal'else 0.5
+                    on_press:root.login(root.ids.username.text, root.ids.password.text)
+            Label:
+                id:login_wrong
+                text:''
+        GridLayout:
+        	cols: 2
+        	size_hint:0.2, 0.2
+        	padding:10,10
+        	spacing:10,10
+        	Button:
+        		text: 'Forgot Password'
+        		background_color:1,1,1,0
+        		opacity:1 if self.state=='normal'else 0.5
+        		color:0.1,0.7,1,1
+    		Button:
+    			text:'Sign Up'
+    			background_color:1,1,1,0
+    			opacity:1 if self.state=='normal'else 0.5
+    			color:0.1,0.7,1,1
+    			on_press:root.signup()
+##<<..............................................................>>
+## <<........................SIGN UP SCREEN........................>>
+##<<...............................................................>>
+<SignUpScreen>:
+    GridLayout:
+        cols:1
+        padding:20,20
+        spacing:20,20
+        Label:
+            text:'Sign Up'
+            font_size:'25sp'
+            size_hint:(.5,None)
+            height:80
+        TextInput:
+            id:username
+            hint_text:'Username'
+            size_hint: (.2, None)
+            height: 60
+            multiline: False
+        TextInput:
+            hint_text:'Password'
+            id:password
+            size_hint: (.2, None)
+            height: 60
+            multiline: False
+        RelativeLayout:
+            Button:
+                text:'Submit'
+                size_hint:None,None
+                height:50
+                width:180
+                pos_hint:{'center_x':0.5, 'center_y':0.6}
+                background_color: 0, 0, 255, 1
+                font_size:'15sp'
+                opacity:1 if self.state=='normal'else 0.5
+                on_press:root.add_user(root.ids.username.text, root.ids.password.text)
+
+##<<..............................................................>>
+## <<........................SUCCESS SIGN UP........................>>
+##<<...............................................................>>
+<SignUpScreenSuccess>:
+    GridLayout:
+        cols:1
+        Label:
+            text:'Sign up successful!! '
+            font_size:'25sp'
+        RelativeLayout:
+            Button:
+                text:'Login Page'
+                size_hint:None,None
+                height:50
+                width:180
+                pos_hint:{'center_x':0.5, 'center_y':0.6}
+                background_color: 0, 0, 255, 1
+                font_size:'15sp'
+                opacity:1 if self.state=='normal'else 0.5
+                on_press:root.login_page()
+##<<..............................................................>>
+## <<........................SUCCESS LOGIN........................>>
+##<<...............................................................>>
+
+<LoginScreenSuccess>:
+    GridLayout:
+        padding:20,20
+        spacing:15,10
+        cols:1
+        RelativeLayout:
+            ImageButton:
+                padding:20,5
+                source:'logout_hover.png' if self.hovered else 'logout_nothover.png'
+                size_hint:(None,None)
+                width:80
+                height:60
+                pos_hint:{'center_x':0.90, 'center_y':0.8}
+                on_press:root.log_out()
+        Label:
+            text:'How do you feel ?'
+            font_size:'25sp'
+        TextInput:
+            id:feeling
+            hint_text:'things to try: happy, sad....'
+            size_hint: (.2, None)
+            height: 60
+            multiline: False
+        RelativeLayout:
+            Button:
+                text:'Enlighten me'
+                size_hint:None,None
+                height:50
+                width:180
+                pos_hint:{'center_x':0.5, 'center_y':0.6}
+                background_color: 0, 0, 255, 1
+                font_size:'15sp'
+                opacity:1 if self.state=='normal'else 0.5
+                on_press:root.get_quote(root.ids.feeling.text)
+        ScrollView:
+            Label:
+                id:quote
+                font_size:'18sp'
+                text:''
+                text_size:self.width, None
+                size_hint_y:None
+                height:self.texture_size[1]
+
+##<<..............................................................>>
+## <<........................ROOT WIDGET........................>>
+##<<...............................................................>>
+<RootWidget>:
+#    canvas.before:
+#        Color:
+#            rgba: 1, 1, 1, 1
+#        Rectangle:
+#            pos: self.pos
+#            size: self.size
+	LoginScreen:
+		name: "login_screen"
+    SignUpScreen:
+        name:'signup_screen'
+    SignUpScreenSuccess:
+        name:'signup_screensuccess'
+    LoginScreenSuccess:
+        name:'login_screensuccess'
+
+
